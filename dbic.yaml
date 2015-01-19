@@ -1,0 +1,4 @@
+PORTO6_DATABASE:
+    dsn: "dbi:Pg:dbname=porto6"
+    user: "andre"
+    password: ""

@@ -5,6 +5,8 @@ requires 'Catalyst::Action::RenderView';
 requires 'Moose';
 requires 'namespace::autoclean';
 requires 'Config::General';
+requires 'DBIx::Class::UUIDColumns';
+requires 'DBIx::Class::Schema::Config';
 
 on test => sub {
     requires 'Test::More' => '0.88';
