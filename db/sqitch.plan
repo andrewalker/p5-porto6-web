@@ -6,3 +6,4 @@ schema_porto6 2015-01-19T20:28:05Z André Walker <andre@ev-andrewalker> # Create
 table_client [schema_porto6] 2015-01-19T20:34:49Z André Walker <andre@ev-andrewalker> # Create table client
 table_item [schema_porto6] 2015-01-19T20:42:59Z André Walker <andre@ev-andrewalker> # Create table item
 table_sale [schema_porto6 table_client] 2015-01-19T20:46:48Z André Walker <andre@ev-andrewalker> # Create table sale
+table_chance [schema_porto6 table_item table_sale] 2015-01-19T21:03:25Z André Walker <andre@ev-andrewalker> # Create table chance
