@@ -4,3 +4,4 @@
 
 schema_porto6 2015-01-19T20:28:05Z André Walker <andre@ev-andrewalker> # Create porto6 schema
 table_client [schema_porto6] 2015-01-19T20:34:49Z André Walker <andre@ev-andrewalker> # Create table client
+table_item [schema_porto6] 2015-01-19T20:42:59Z André Walker <andre@ev-andrewalker> # Create table item
