@@ -7,16 +7,27 @@ BEGIN { extends 'Catalyst::Controller' }
 __PACKAGE__->config(namespace => '');
 
 sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
+    my ( $self, $ctx ) = @_;
 
-    # Hello World
-    $c->response->body( $c->welcome_message );
+    $ctx->res->body('hello there');
 }
 
 sub default :Path {
-    my ( $self, $c ) = @_;
-    $c->response->body( 'Page not found' );
-    $c->response->status(404);
+    my ( $self, $ctx ) = @_;
+
+    $ctx->detach('/error_404');
+}
+
+sub error_404 :Private {
+    my ( $self, $ctx ) = @_;
+
+    $ctx->stash( json_data => { msg => 'Page not found' } );
+    $ctx->res->status(404);
+}
+
+sub ping :Path('/ping') :Args(0) {
+    my ( $self, $ctx ) = @_;
+    $ctx->stash( json_data => { msg => 'Pong' } );
 }
 
 sub end : ActionClass('RenderView') {}
