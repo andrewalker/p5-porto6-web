@@ -8,6 +8,9 @@ requires 'Config::General';
 requires 'DBIx::Class::UUIDColumns';
 requires 'DBIx::Class::Schema::Config';
 requires 'URI::db';
+requires 'Catalyst::Model::CPI';
+requires 'Business::CPI::Gateway::PagSeguro' => '0.904';
+requires 'Business::CPI::Gateway::PayPal' => '0.905';
 
 on test => sub {
     requires 'Test::More' => '0.88';
