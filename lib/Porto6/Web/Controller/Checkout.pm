@@ -8,6 +8,12 @@ BEGIN { extends 'Catalyst::Controller' }
 sub place_order :Path('/checkout') Args(0) POST {
     my ( $self, $ctx ) = @_;
 
+    $ctx->res->header('Access-Control-Allow-Origin', '*');
+    $ctx->res->header('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    $ctx->res->header('Access-Control-Allow-Headers', 'Content-Type');
+    $ctx->res->header('Access-Control-Max-Age', '1728000');
+    $ctx->res->header('Allow', 'POST, OPTIONS');
+
     my $req = $ctx->req->body_data;
     my $chance_rs = $ctx->model('DB::Chance');
 
@@ -23,14 +29,31 @@ sub place_order :Path('/checkout') Args(0) POST {
 
     $sale->discard_changes;
 
-    $ctx->stash(json_data => {
-        sale => {
-            id      => $sale->id,
-            gateway => $sale->gateway,
-            status  => $sale->status,
-        }
-    });
     $ctx->res->status(201);
+
+    $ctx->stash(
+        json_data => {
+            sale => {
+                id      => $sale->id,
+                gateway => $sale->gateway,
+                status  => $sale->status,
+            }
+        }
+    );
+}
+
+sub place_order_options :Path('/checkout') Args(0) Method(OPTIONS) {
+    my ($self, $ctx) = @_;
+
+    $ctx->res->header('Access-Control-Allow-Origin', '*');
+    $ctx->res->header('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    $ctx->res->header('Access-Control-Allow-Headers', 'Content-Type');
+    $ctx->res->header('Access-Control-Max-Age', '1728000');
+    $ctx->res->header('Allow', 'POST, OPTIONS');
+
+    $ctx->res->status(200);
+    $ctx->res->content_type('text/plain');
+    $ctx->res->body('');
 }
 
 sub _gen_random_code {
