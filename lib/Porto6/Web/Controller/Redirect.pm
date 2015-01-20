@@ -29,12 +29,15 @@ sub redirect :Path('/redirect') :Args(1) {
 
     $cart->add_item({
         id       => 'seis-meses-no-porto',
-        quantity => $sale->items->count,
+        quantity => $sale->chances->count,
         price    => 5.00,
         description => 'Cupons para sorteio dos quadros',
     });
 
-    $ctx->res->body($cart->get_form_to_pay($sale->id));
+    $ctx->stash(
+        checkout_form => $cart->get_form_to_pay( $sale->id ),
+        current_view  => 'CheckoutForm'
+    );
 }
 
 __PACKAGE__->meta->make_immutable;
