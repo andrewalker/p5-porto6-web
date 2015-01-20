@@ -14,6 +14,9 @@ requires 'Business::CPI::Gateway::PayPal' => '0.905';
 requires 'String::Random';
 requires 'Catalyst::Model::DBIC::Schema';
 requires 'Catalyst::View::JSON';
+requires 'Test::WWW::Mechanize::Catalyst';
+requires 'Data::Printer';
+requires 'DateTime::Format::Pg';
 
 on test => sub {
     requires 'Test::More' => '0.88';
