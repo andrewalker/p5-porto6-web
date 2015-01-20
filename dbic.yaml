@@ -6,3 +6,12 @@ PORTO6_DATABASE:
     quote_char: "\""
     name_sep: "."
     on_connect_do: [ "SET search_path = porto6, public, pg_catalog", "SET lc_monetary = 'pt_BR.UTF-8'", "SET timezone = 'America/Sao_Paulo'" ]
+
+TRAVIS_DATABASE:
+    dsn: "dbi:Pg:dbname=porto6"
+    user: "postgres"
+    password: ""
+    pg_enable_utf8: 1
+    quote_char: "\""
+    name_sep: "."
+    on_connect_do: [ "SET search_path = porto6, public, pg_catalog", "SET lc_monetary = 'pt_BR.UTF-8'", "SET timezone = 'America/Sao_Paulo'" ]

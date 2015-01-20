@@ -1,0 +1,14 @@
+language: perl
+perl:
+    - "5.20"
+    - "5.18"
+    - "5.16"
+before_install:
+    - sudo locale-gen --no-archive pt_BR.UTF-8
+before_script:
+    - psql -c 'CREATE DATABASE porto6' -U postgres
+    - sqitch deploy --target db:pg://postgres@/porto6
+install:
+    - cpanm --quiet --installdeps --notest --with-develop .
+env:
+    - CATALYST_CONFIG_LOCAL_SUFFIX=travis

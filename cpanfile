@@ -16,12 +16,11 @@ requires 'Catalyst::Model::DBIC::Schema';
 requires 'Catalyst::View::JSON';
 requires 'Test::WWW::Mechanize::Catalyst';
 requires 'Data::Printer';
+requires 'Test::More' => '0.88';
+requires 'DBD::Pg' => '2.0';
 requires 'DateTime::Format::Pg';
-
-on test => sub {
-    requires 'Test::More' => '0.88';
-};
 
 on develop => sub {
     requires 'Catalyst::Devel';
+    requires 'App::Sqitch';
 };
