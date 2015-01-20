@@ -7,6 +7,7 @@ requires 'namespace::autoclean';
 requires 'Config::General';
 requires 'DBIx::Class::UUIDColumns';
 requires 'DBIx::Class::Schema::Config';
+requires 'URI::db';
 
 on test => sub {
     requires 'Test::More' => '0.88';
