@@ -8,3 +8,4 @@ table_item [schema_porto6] 2015-01-19T20:42:59Z André Walker <andre@ev-andrewal
 table_sale [schema_porto6 table_client] 2015-01-19T20:46:48Z André Walker <andre@ev-andrewalker> # Create table sale
 table_chance [schema_porto6 table_item table_sale] 2015-01-19T21:03:25Z André Walker <andre@ev-andrewalker> # Create table chance
 data_items [table_item] 2015-01-19T23:14:30Z André Walker <andre@ev-andrewalker> # Insert default items
+alter_sale_gateway [table_sale] 2015-01-19T23:57:36Z André Walker <andre@ev-andrewalker> # Add column gateway to sales

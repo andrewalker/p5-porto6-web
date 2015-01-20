@@ -56,6 +56,11 @@ __PACKAGE__->table("sale");
   extra: {custom_type_name => "sale_status",list => ["new","waiting","payed","sent-email"]}
   is_nullable: 0
 
+=head2 gateway
+
+  data_type: 'text'
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -73,6 +78,8 @@ __PACKAGE__->add_columns(
     },
     is_nullable => 0,
   },
+  "gateway",
+  { data_type => "text", is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -120,8 +127,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-01-19 19:23:18
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:90l2klzub4fyHlT87u9Z/w
+# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-01-19 23:09:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QMXY7M+SkPoQOW7+hUk9Aw
 
 __PACKAGE__->uuid_columns('id');
 
