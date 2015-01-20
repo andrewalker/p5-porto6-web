@@ -21,3 +21,7 @@ requires 'DateTime::Format::Pg';
 on test => sub {
     requires 'Test::More' => '0.88';
 };
+
+on develop => sub {
+    requires 'Catalyst::Devel';
+};
