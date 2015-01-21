@@ -7,8 +7,9 @@ use JSON;
 
 use Test::WWW::Mechanize::Catalyst;
 use Porto6::Schema;
+use Porto6::Config;
 
-my $db = Porto6::Schema->connect($ENV{CATALYST_CONFIG_LOCAL_SUFFIX} eq 'travis' ? 'TRAVIS_DATABASE' : 'PORTO6_DATABASE');
+my $db = Porto6::Schema->connect(get_config()->{model}{DB}{connect_info}{dsn});
 my $id;
 
 sub cleanup {
