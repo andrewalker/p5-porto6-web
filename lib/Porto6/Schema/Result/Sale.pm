@@ -53,13 +53,32 @@ __PACKAGE__->table("sale");
 
   data_type: 'enum'
   default_value: 'new'
-  extra: {custom_type_name => "sale_status",list => ["new","waiting","payed","sent-email"]}
+  extra: {custom_type_name => "sale_status",list => ["new","waiting","payed","sent-email","failed"]}
   is_nullable: 0
 
 =head2 gateway
 
   data_type: 'text'
   is_nullable: 0
+
+=head2 gateway_id
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 created_at
+
+  data_type: 'timestamp with time zone'
+  default_value: current_timestamp
+  is_nullable: 1
+  original: {default_value => \"now()"}
+
+=head2 updated_at
+
+  data_type: 'timestamp with time zone'
+  default_value: current_timestamp
+  is_nullable: 1
+  original: {default_value => \"now()"}
 
 =cut
 
@@ -74,12 +93,28 @@ __PACKAGE__->add_columns(
     default_value => "new",
     extra => {
       custom_type_name => "sale_status",
-      list => ["new", "waiting", "payed", "sent-email"],
+      list => ["new", "waiting", "payed", "sent-email", "failed"],
     },
     is_nullable => 0,
   },
   "gateway",
   { data_type => "text", is_nullable => 0 },
+  "gateway_id",
+  { data_type => "text", is_nullable => 1 },
+  "created_at",
+  {
+    data_type     => "timestamp with time zone",
+    default_value => \"current_timestamp",
+    is_nullable   => 1,
+    original      => { default_value => \"now()" },
+  },
+  "updated_at",
+  {
+    data_type     => "timestamp with time zone",
+    default_value => \"current_timestamp",
+    is_nullable   => 1,
+    original      => { default_value => \"now()" },
+  },
 );
 
 =head1 PRIMARY KEY
@@ -127,8 +162,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-01-19 23:09:58
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QMXY7M+SkPoQOW7+hUk9Aw
+# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-01-23 19:58:26
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0sQTqI60kvHpxe567zwoPw
 
 __PACKAGE__->uuid_columns('id');
 
