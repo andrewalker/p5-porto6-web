@@ -8,17 +8,21 @@ use Config::ZOMG;
 use Catalyst::Utils ();
 use Data::Visitor::Callback;
 
-our @EXPORT = qw/get_config/;
+our @EXPORT = qw/get_config get_home/;
+
+sub get_home {
+    state $home = Catalyst::Utils::home(__PACKAGE__);
+    return $home;
+}
 
 sub get_config {
     state $config;
 
     if (!$config) {
-        my $home = Catalyst::Utils::home(__PACKAGE__);
 
         my $obj = Config::ZOMG->new(
             name         => 'porto6_web',
-            path         => $home,
+            path         => get_home(),
             local_suffix => exists $ENV{CATALYST_CONFIG_LOCAL_SUFFIX}
                          ?  $ENV{CATALYST_CONFIG_LOCAL_SUFFIX}
                          :  'local',

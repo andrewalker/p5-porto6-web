@@ -5,6 +5,7 @@ use Business::CPI;
 use Porto6::Config;
 use Porto6::Schema;
 use Try::Tiny;
+use Porto6::Mailer;
 
 has db => (
     is => 'ro',
@@ -180,6 +181,46 @@ sub update_sale {
     }
 
     return;
+}
+
+sub send_payment_received_mails {
+    my ($self) = @_;
+
+    my $rs = $self->rs;
+    my @sales = $rs->search({ status => 'payed' })->all;
+
+    my @items = map { +{ name => $_->name } }
+                $self->db->resultset('Item')->search->all;
+
+    for my $sale (@sales) {
+        my @sale_items = $sale->chances->search({}, {
+            group_by  => 'item',
+            '+select' => [ { count => '*' } ],
+            '+as'     => 'chance_count',
+            columns   => [ qw/item/ ],
+        })->all;
+
+        try {
+            payment_received({
+                name    => $sale->client->name,
+                email   => $sale->client->email,
+                chances => $sale->chances->count,
+                date    => $sale->client->created_at,
+                items => [
+                    map {
+                        +{
+                            name    => $_->get_column('item'),
+                            chances => $_->get_column('chance_count'),
+                        }
+                    } @sale_items
+                ],
+            });
+            $sale->update({ status => 'sent-email' });
+        }
+        catch {
+            warn "Exception when sending email to " . $sale->client->email . ": $_";
+        };
+    }
 }
 
 1;

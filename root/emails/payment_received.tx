@@ -1,0 +1,35 @@
+<div style="font-family:'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Verdana, Tahoma, sans-serif; font-size: 14px">
+<table width="600" style="margin: 0 auto">
+    <tr>
+        <td colspan="4"><: $name :>,</td>
+    </tr>
+    <tr><td colspan="4">&nbsp;</td></tr>
+    <tr>
+        <td colspan="4">Você efetuou a compra de <: $chances :> cupons no dia <: $date.strftime('%d/%m/%Y') :> para concorrer aos seguintes quadros:</td>
+    </tr>
+    <tr><td colspan="4">&nbsp;</td></tr>
+:   for $items -> $item {
+    <tr>
+        <td width="150" colspan="1"><img src="https://seismesesnoporto.ga/mini/<: $item.name :>.jpg"></td>
+        <td width="150" colspan="1"><strong>Cupons: <: $item.chances :></strong></td>
+        <td colspan="2">&nbsp;</td>
+    </tr>
+:   }
+    <tr><td colspan="4">&nbsp;</td></tr>
+    <tr>
+        <td colspan="4">
+            A data do sorteio será dia <strong>7 de fevereiro</strong>, e
+            publicaremos os nomes dos ganhadores no
+            <a href="https://www.facebook.com/events/949752875056549/">evento do facebook</a>.
+        </td>
+    </tr>
+    <tr><td colspan="4">&nbsp;</td></tr>
+    <tr>
+        <td colspan="4">Agradecemos a participação, e boa sorte!</td>
+    </tr>
+    <tr><td colspan="4">&nbsp;</td></tr>
+    <tr>
+        <td colspan="4">Atenciosamente,<br/>Júlia e Lilian</td>
+    </tr>
+</table>
+</div>

@@ -21,7 +21,12 @@ requires 'DateTime::Format::Pg';
 requires 'URI::db';
 requires 'Config::ZOMG';
 requires 'Data::Visitor::Callback';
+requires 'Email::Sender::Simple';
+requires 'Email::MIME';
+requires 'Text::Xslate';
 requires 'Try::Tiny';
+requires 'MIME::Base64';
+requires 'Authen::SASL';
 
 on develop => sub {
     requires 'Catalyst::Devel';

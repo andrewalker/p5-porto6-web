@@ -52,6 +52,12 @@ sub update_all :Path('/update_all') :Args(0) {
     $ctx->res->body('kthx');
 }
 
+sub send_mails :Path('/send_mails') :Args(0) {
+    my ( $self, $ctx ) = @_;
+    $self->updater($ctx)->send_payment_received_mails;
+    $ctx->res->body('kthx');
+}
+
 sub _normalize {
     my ($gateway) = @_;
 
