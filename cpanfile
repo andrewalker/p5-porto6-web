@@ -21,6 +21,7 @@ requires 'DateTime::Format::Pg';
 requires 'URI::db';
 requires 'Config::ZOMG';
 requires 'Data::Visitor::Callback';
+requires 'Try::Tiny';
 
 on develop => sub {
     requires 'Catalyst::Devel';

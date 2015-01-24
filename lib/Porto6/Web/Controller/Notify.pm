@@ -2,13 +2,33 @@ package Porto6::Web::Controller::Notify;
 use Moose;
 use Data::Printer;
 use namespace::autoclean;
+use Porto6::UpdateStatus;
 
 BEGIN { extends 'Catalyst::Controller' }
+
+has _updater => (
+    is => 'rw',
+    predicate => '_has_updater',
+);
+
+sub updater {
+    my ($self, $ctx) = @_;
+
+    if (!$self->_has_updater) {
+        my $updater = Porto6::UpdateStatus->new(
+            rs => $ctx->model('DB::Sale'),
+        );
+        return $self->_updater($updater);
+    }
+
+    return $self->_updater;
+}
 
 sub notify :Path('/notify') :Args(1) {
     my ( $self, $ctx, $gateway ) = @_;
 
     my $normalized_gateway = _normalize($gateway);
+    my $updater = $self->updater($ctx);
 
     # Business::CPI handles the rest
     # (beautifully, must I add)
@@ -21,33 +41,14 @@ sub notify :Path('/notify') :Args(1) {
         die();
     }
 
-    if ($notification->{status} eq 'processing' && $sale->status ne 'waiting') {
-        $sale->update({ status => 'waiting', updated_at => \'now()' });
-    }
-    elsif ($notification->{status} eq 'completed' && $sale->status ne 'payed' && $sale->status ne 'sent-email') {
-        $sale->update({ status => 'completed', updated_at => \'now()' });
-    }
-    else {
-        $ctx->log->warn("Oops. We have a problem. Sale: " . $sale->id);
-        $ctx->log->warn("Notification: " . p($notification));
-        $ctx->log->info("We're gonna tell $normalized_gateway it's ok anyway.");
-    }
+    $updater->update_sale($sale, $notification->{status}, $notification->{gateway_transaction_id});
 
-    # example notification:
-    # {
-    #     net_amount             => '200.00',
-    #     gateway_transaction_id => '9E884542-81B3-4419-9A75-BCC6FB495EF1',
-    #     payment_id             => 1,
-    #     status                 => 'completed',
-    #     amount                 => '200.00',
-    #     date                   => '2011-02-10T16:13:41.000-03:00',
-    #     payer                  => {
-    #         name => "João da Silva",
-    #     },
-    #     exchange_rate => 0,
-    #     fee           => '0.00'
-    # }
+    $ctx->res->body('kthx');
+}
 
+sub update_all :Path('/update_all') :Args(0) {
+    my ( $self, $ctx ) = @_;
+    $self->updater($ctx)->update_all;
     $ctx->res->body('kthx');
 }
 
