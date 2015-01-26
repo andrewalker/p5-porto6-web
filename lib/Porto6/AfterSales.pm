@@ -111,6 +111,20 @@ sub update_payments_without_id {
     return \%seen;
 }
 
+sub expire_old {
+    my ($self, $status) = @_;
+
+    $self->rs->search(
+        {
+            status              => 'new',
+            'client.created_at' => { '<=', \"now() - interval '24 hours'" }
+        },
+        { join => 'client' }
+    )->update({ status => 'expired' });
+
+    return;
+}
+
 sub get_incomplete_sales {
     my ($self, $seen) = @_;
 
@@ -133,6 +147,7 @@ sub update_all {
     my $seen = $self->update_payments_without_id;
     my $sales = $self->get_incomplete_sales($seen);
     $self->update_sales($sales);
+    $self->expire_old;
 
     return;
 }

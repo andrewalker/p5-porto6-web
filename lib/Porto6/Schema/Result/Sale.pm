@@ -53,7 +53,7 @@ __PACKAGE__->table("sale");
 
   data_type: 'enum'
   default_value: 'new'
-  extra: {custom_type_name => "sale_status",list => ["new","waiting","payed","sent-email","failed"]}
+  extra: {custom_type_name => "sale_status",list => ["new","waiting","payed","sent-email","failed","expired"]}
   is_nullable: 0
 
 =head2 gateway
@@ -93,7 +93,7 @@ __PACKAGE__->add_columns(
     default_value => "new",
     extra => {
       custom_type_name => "sale_status",
-      list => ["new", "waiting", "payed", "sent-email", "failed"],
+      list => ["new", "waiting", "payed", "sent-email", "failed", "expired"],
     },
     is_nullable => 0,
   },
@@ -162,8 +162,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-01-23 19:58:26
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0sQTqI60kvHpxe567zwoPw
+# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-01-26 16:27:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1aSmn9EZOFKwxEGZhXNp2A
 
 __PACKAGE__->uuid_columns('id');
 
