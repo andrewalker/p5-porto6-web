@@ -1,4 +1,4 @@
-package Porto6::UpdateStatus;
+package Porto6::AfterSales;
 use Moose;
 use utf8;
 use Business::CPI;

@@ -1,34 +1,23 @@
-package Porto6::Web::Controller::Notify;
+package Porto6::Web::Controller::AfterSales;
 use Moose;
 use Data::Printer;
 use namespace::autoclean;
-use Porto6::UpdateStatus;
+use Porto6::AfterSales;
 
 BEGIN { extends 'Catalyst::Controller' }
 
-has _updater => (
-    is => 'rw',
-    predicate => '_has_updater',
-);
-
-sub updater {
-    my ($self, $ctx) = @_;
-
-    if (!$self->_has_updater) {
-        my $updater = Porto6::UpdateStatus->new(
-            rs => $ctx->model('DB::Sale'),
-        );
-        return $self->_updater($updater);
-    }
-
-    return $self->_updater;
+sub base :Chained('/') :PathPart('') :CaptureArgs(0) {
+    my ( $self, $ctx ) = @_;
+    $ctx->stash(
+        current_model => 'AfterSales',
+        current_view  => 'DontCare',
+    );
 }
 
-sub notify :Path('/notify') :Args(1) {
+sub gateway_postback :Chained('base') :PathPart('gateway_postback') :Args(1) {
     my ( $self, $ctx, $gateway ) = @_;
 
     my $normalized_gateway = _normalize($gateway);
-    my $updater = $self->updater($ctx);
 
     # Business::CPI handles the rest
     # (beautifully, must I add)
@@ -41,21 +30,17 @@ sub notify :Path('/notify') :Args(1) {
         die();
     }
 
-    $updater->update_sale($sale, $notification->{status}, $notification->{gateway_transaction_id});
-
-    $ctx->res->body('kthx');
+    $ctx->model->update_sale($sale, $notification->{status}, $notification->{gateway_transaction_id});
 }
 
-sub update_all :Path('/update_all') :Args(0) {
+sub update_all :Chained('base') :PathPart('update_all') :Args(0) {
     my ( $self, $ctx ) = @_;
-    $self->updater($ctx)->update_all;
-    $ctx->res->body('kthx');
+    $ctx->model->update_all;
 }
 
-sub send_mails :Path('/send_mails') :Args(0) {
+sub send_mails :Chained('base') :PathPart('send_mails') :Args(0) {
     my ( $self, $ctx ) = @_;
-    $self->updater($ctx)->send_payment_received_mails;
-    $ctx->res->body('kthx');
+    $ctx->model->send_payment_received_mails;
 }
 
 sub _normalize {

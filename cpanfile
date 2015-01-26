@@ -27,6 +27,7 @@ requires 'Text::Xslate';
 requires 'Try::Tiny';
 requires 'MIME::Base64';
 requires 'Authen::SASL';
+requires 'Catalyst::Model::Adaptor';
 
 on develop => sub {
     requires 'Catalyst::Devel';
