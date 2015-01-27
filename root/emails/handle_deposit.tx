@@ -1,0 +1,33 @@
+<div style="font-family:'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Verdana, Tahoma, sans-serif; font-size: 14px">
+<table width="600" style="margin: 0 auto">
+    <tr>
+        <td>Olá, Júlia e Lilian,</td>
+    </tr>
+
+    <tr><td>&nbsp;</td></tr>
+
+    <tr>
+        <td><: $name :> efetuou uma compra de <: $chances :> cupons no dia <: $date.strftime('%d/%m/%Y') :>.</td>
+    </tr>
+
+    <tr><td>&nbsp;</td></tr>
+
+    <tr>
+        <td>Verifique se recebeu o dinheiro em sua conta, e se recebeu o
+        comprovante por e-mail. Quando vir que o pagamento realmente foi
+        efetuado: </td>
+    </tr>
+
+    <tr><td>&nbsp;</td></tr>
+
+    <tr><td><a href="<: $confirm_url :>" target="_blank">Marque Lance como <strong>Pago</strong></a></td></tr>
+
+    <tr><td>&nbsp;</td></tr>
+
+    <tr><td>ou, caso não tenha sido pago:</td></tr>
+
+    <tr><td>&nbsp;</td></tr>
+
+    <tr><td><a href="<: $cancel_url :>" target="_blank"><strong>Cancele</strong> o Lance</a></td></tr>
+</table>
+</div>

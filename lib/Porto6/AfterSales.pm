@@ -156,6 +156,7 @@ sub update_sales {
     my ($self, $sales) = @_;
 
     for my $gt (keys %$sales) {
+        next if $gt eq 'Deposit';
         my $cpi = $self->cpi($gt);
         for my $sale ( @{ $sales->{$gt} } ) {
             if ($sale->gateway_id) {
@@ -196,6 +197,30 @@ sub update_sale {
     }
 
     return;
+}
+
+sub update_deposit {
+    my ($self, $uri_for) = @_;
+
+    my $rs = $self->rs;
+    my @sales = $rs->search({ status => 'new', gateway => 'Deposit' })->all;
+
+    for my $sale (@sales) {
+        try {
+            deposit_request_received({
+                name        => $sale->client->name,
+                chances     => $sale->chances->count,
+                date        => $sale->client->created_at,
+                cancel_url  => $uri_for->($sale->id, 'cancel'),
+                confirm_url => $uri_for->($sale->id, 'confirm'),
+            });
+
+            $sale->update({ status => 'waiting' });
+        }
+        catch {
+            warn "Exception when sending email to " . $sale->client->email . ": $_";
+        };
+    }
 }
 
 sub send_payment_received_mails {

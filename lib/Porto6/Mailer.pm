@@ -9,7 +9,7 @@ use Exporter 'import';
 use Text::Xslate;
 use Porto6::Config;
 
-our @EXPORT = qw/payment_received/;
+our @EXPORT = qw/payment_received deposit_request_received/;
 
 sub payment_received {
     my ($info) = @_;
@@ -26,6 +26,26 @@ sub payment_received {
             encoding     => 'quoted-printable',
         },
         body_str => render('payment_received.tx', $info),
+    );
+
+    sendmail($email);
+}
+
+sub deposit_request_received {
+    my ($info) = @_;
+
+    my $email = Email::MIME->create(
+        header_str => [
+            To      => '"Pagamentos" <pagamento@seismesesnoporto.ga>',
+            From    => '"Júlia e Lilian" <juliaelilian@seismesesnoporto.ga>',
+            Subject => 'Depósito recebido',
+        ],
+        attributes => {
+            content_type => 'text/html',
+            charset      => 'UTF-8',
+            encoding     => 'quoted-printable',
+        },
+        body_str => render('handle_deposit.tx', $info),
     );
 
     sendmail($email);

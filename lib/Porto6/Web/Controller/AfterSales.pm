@@ -2,7 +2,6 @@ package Porto6::Web::Controller::AfterSales;
 use Moose;
 use Data::Printer;
 use namespace::autoclean;
-use Porto6::AfterSales;
 
 BEGIN { extends 'Catalyst::Controller' }
 
