@@ -110,9 +110,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
+=head2 winner
 
-# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-01-19 19:23:18
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rJl2FSyrKyogS1yXUcm0hg
+Type: might_have
+
+Related object: L<Porto6::Schema::Result::Winner>
+
+=cut
+
+__PACKAGE__->might_have(
+  "winner",
+  "Porto6::Schema::Result::Winner",
+  { "foreign.chance" => "self.code" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-02-07 11:00:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JbIqp5ai7e2UqcPmqyHfsQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -75,9 +75,24 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 winner
 
-# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-01-19 19:23:18
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum://LDtzwE89C+p80zHKh4gw
+Type: might_have
+
+Related object: L<Porto6::Schema::Result::Winner>
+
+=cut
+
+__PACKAGE__->might_have(
+  "winner",
+  "Porto6::Schema::Result::Winner",
+  { "foreign.item" => "self.name" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-02-07 11:00:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0ZStxz1Os5WXIHbNve6YYg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

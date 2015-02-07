@@ -11,3 +11,4 @@ data_items [table_item] 2015-01-19T23:14:30Z André Walker <andre@ev-andrewalker
 alter_sale_gateway [table_sale] 2015-01-19T23:57:36Z André Walker <andre@ev-andrewalker> # Add column gateway to sales
 rework_sale [table_sale] 2015-01-23T21:34:07Z André Walker <andre@ev-andrewalker> # Major changes in table sale
 add_expired_status [rework_sale] 2015-01-26T18:21:52Z André Walker <andre@ev-andrewalker> # Create expired status
+table_winner [table_chance] 2015-02-07T12:44:41Z André Walker <andre@ev-andrewalker> # Winners table
