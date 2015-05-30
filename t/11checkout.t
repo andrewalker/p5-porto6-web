@@ -44,11 +44,11 @@ subtest 'checkout' => sub {
             },
             items => [
                 {
-                    name => 'L1',
+                    name => 'L3',
                     chances => 2,
                 },
                 {
-                    name => 'J2',
+                    name => 'J3',
                     chances => 6,
                 }
             ],
@@ -69,8 +69,8 @@ subtest 'checkout' => sub {
 
     my $sale = $db->resultset('Sale')->find($id);
     ok($sale, 'found sale in database');
-    is($sale->chances->search({ item => 'L1' })->count, 2, 'L1 chances are correct');
-    is($sale->chances->search({ item => 'J2' })->count, 6, 'J2 chances are correct');
+    is($sale->chances->search({ item => 'L3' })->count, 2, 'L3 chances are correct');
+    is($sale->chances->search({ item => 'J3' })->count, 6, 'J3 chances are correct');
 };
 
 subtest 'redirect' => sub {

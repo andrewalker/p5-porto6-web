@@ -77,10 +77,9 @@ sub roll_the_dice {
     while (my $sale = $sales->next) {
         my $email = $sale->client->email;
         $chances{$email} ||= {
-            L1 => [],
-            L2 => [],
-            J1 => [],
-            J2 => [],
+            L3 => [],
+            J3 => [],
+            V1 => [],
         };
 
         for my $c ($sale->chances->all) {
@@ -89,7 +88,7 @@ sub roll_the_dice {
         }
     }
 
-    for my $i (shuffle(qw/L1 L2 J1 J2/)) {
+    for my $i (shuffle(qw/L3 J3 V1/)) {
         my $winner_email = $self->_find_and_save_winner($i, map { @{ $_->{$i} } } values %chances);
         delete $chances{$winner_email};
     }
