@@ -27,6 +27,13 @@ sub error_404 :Private {
 
 sub ping :Path('/ping') :Args(0) {
     my ( $self, $ctx ) = @_;
+
+    $ctx->res->header('Access-Control-Allow-Origin', '*');
+    $ctx->res->header('Access-Control-Allow-Methods', 'GET');
+    $ctx->res->header('Access-Control-Allow-Headers', 'Content-Type');
+    $ctx->res->header('Access-Control-Max-Age', '1728000');
+    $ctx->res->header('Allow', 'GET');
+
     $ctx->stash( json_data => { msg => 'Pong' } );
 }
 
