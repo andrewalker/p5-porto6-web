@@ -64,10 +64,6 @@ img {
 	max-width: none;
 }
 
-strong {
-  	font-weight: 500;
-}
-
 p {
 	margin: 0 0 30px;
 }
@@ -709,7 +705,8 @@ nav#menu #menu-nav li a:hover {
 }
 
 .item-thumbs a + img {
-	width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 
 .item-thumbs .hover-wrap {
@@ -785,7 +782,6 @@ nav#menu #menu-nav li a:hover {
 	position: relative;
 	overflow: hidden;
 	margin-bottom: 25px;
-	cursor: pointer;
 }
 
 .image-wrap img {
