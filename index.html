@@ -18,6 +18,29 @@
 <meta name="HandheldFriendly" content="true"/>
 <meta name="MobileOptimized" content="320"/>
 
+<script type="text/javascript">
+(function () {
+    var xhr = false;
+
+    if (window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    function wakeAPI() {
+        xhr.open('GET', 'https://payment.seismesesnoporto.ga/ping');
+        xhr.send();
+    }
+
+    if (xhr) {
+        wakeAPI();
+        window.setInterval(wakeAPI, 30000);
+    }
+})();
+</script>
+
 <!-- Mobile Internet Explorer ClearType Technology -->
 <!--[if IEMobile]>  <meta http-equiv="cleartype" content="on">  <![endif]-->
 
@@ -315,15 +338,15 @@
                 <div class="row">
                     <div class="span2">
                         <img src="photos/lilian-thumb.jpg" style="width:100%" alt="">
-                        <p><input type="text" placeholder="quantos cupons?" name="L1" class="coupons" /></p>
+                        <p><input type="text" placeholder="quantos cupons?" name="L3" class="coupons" /></p>
                     </div>
                     <div class="span2">
                         <img src="photos/julia-thumb.jpg" style="width:100%" alt="">
-                        <p><input type="text" placeholder="quantos cupons?" name="L2" class="coupons" /></p>
+                        <p><input type="text" placeholder="quantos cupons?" name="J3" class="coupons" /></p>
                     </div>
                     <div class="span2">
                         <img src="photos/vinho-thumb.jpg" style="width:100%" alt="">
-                        <p><input type="text" placeholder="quantos cupons?" name="L2" class="coupons" /></p>
+                        <p><input type="text" placeholder="quantos cupons?" name="V1" class="coupons" /></p>
                     </div>
                 </div>
             </div>
