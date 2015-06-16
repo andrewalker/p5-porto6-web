@@ -27,12 +27,22 @@ sub redirect :Path('/redirect') :Args(1) {
         }
     });
 
-    $cart->add_item({
-        id       => 'seis-meses-no-porto',
-        quantity => $sale->chances->count,
-        price    => 5.00,
-        description => 'Cupons para sorteio dos quadros',
-    });
+    my %items;
+
+    for ($sale->chances->all) {
+        my $item = $_->item;
+        $items{ $item->name } //= { count => 0, price => $item->price };
+        $items{ $item->name }{count}++;
+    }
+
+    for my $name (keys %items) {
+        $cart->add_item({
+            id          => "smnp-$name",
+            quantity    => $items{$name}{count},
+            price       => $items{$name}{price},
+            description => "Cupons para sorteio ($name)",
+        });
+    }
 
     $ctx->stash(
         checkout_form => $cart->get_form_to_pay( $sale->id ),
