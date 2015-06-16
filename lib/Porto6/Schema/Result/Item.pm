@@ -42,9 +42,26 @@ __PACKAGE__->table("item");
   data_type: 'text'
   is_nullable: 0
 
+=head2 price
+
+  data_type: 'numeric'
+  default_value: 5.0
+  is_nullable: 0
+  size: [5,2]
+
 =cut
 
-__PACKAGE__->add_columns("name", { data_type => "text", is_nullable => 0 });
+__PACKAGE__->add_columns(
+  "name",
+  { data_type => "text", is_nullable => 0 },
+  "price",
+  {
+    data_type => "numeric",
+    default_value => "5.0",
+    is_nullable => 0,
+    size => [5, 2],
+  },
+);
 
 =head1 PRIMARY KEY
 
@@ -91,8 +108,8 @@ __PACKAGE__->might_have(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07040 @ 2015-02-07 11:00:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0ZStxz1Os5WXIHbNve6YYg
+# Created by DBIx::Class::Schema::Loader v0.07043 @ 2015-06-16 08:18:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:mlL3ISatRxeqvR2qol0Bow
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
