@@ -496,6 +496,7 @@ BRUSHED.getCouponTotals = function () {
 
     $('.coupons').each(function(){
         var number = $(this).val();
+        var price  = 0 + $(this).data('price');
         if (!number) return;
 
         var myInt  = parseInt(number);
@@ -505,7 +506,7 @@ BRUSHED.getCouponTotals = function () {
             return false;
         }
 
-        total += myInt;
+        total += (myInt * price);
     });
 
     if (err)
@@ -519,7 +520,7 @@ BRUSHED.updateTotals = function (total) {
         $('#total').html( "O número digitado não é válido." );
     }
     else {
-        var formattedNumber = (total*5.0).toFixed(2);
+        var formattedNumber = total.toFixed(2);
         var ptBrNumber = ("" + formattedNumber).replace('.',',');
         $('#total').html( "<strong>Total: </strong> R$ " + ptBrNumber );
     }
